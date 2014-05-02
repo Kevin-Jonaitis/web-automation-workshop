@@ -18,19 +18,22 @@ app.post('/login', function(req, res) {
 	var password = req.body.password;
 	mongo.Db.connect(mongoUri, function(err, db) {
 
-	db.mydocs.find_one({username:password});
-	if(result) {
-		res.send("You are signed in, " + username);
-	}
+		db.collection("mydocs").find_one({username:password},function(err,item){
+			if(item){
+				res.send("You are logged in, " + username);
+			} else {
+				res.send("We could not find user " + username + " :( So very sorry");
+			}
+		});
 	});
 });
 
 app.post('/signUpCheck', function(req, res) {
-  var string = "Welcome, " + " with passowrd " + password;
+  var string = "Welcome, " + username + " with password " + password;
   var username = String(req.body.username);
   var password = String(req.body.password);
   string = string + req.body.username; 
-  res.send(string + " "  + password);
+  res.send(string);
 
   mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('mydocs', function(er, collection) {
