@@ -3,9 +3,8 @@ var logfmt = require("logfmt");
 var app = express();
 var mongo = require('mongodb');
 var mongoUri = process.env.MONGOLAB_URI ||  process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
-app.use(express.bodyParser());       // to support JSON-encoded bodies
-//app.use(express.urlencoded()); // to support URL-encoded bodies
-
+var bodyParser = require('body-parser');
+app.use(bodyParser());
 
 app.use(logfmt.requestLogger());
 
@@ -13,17 +12,32 @@ app.get('/', function(req, res) {
   res.send('Hello World!');
 });
 
+
+app.post('/login', function(req, res) {
+	var username = req.body.username;
+	var password = req.body.password;
+	var db = mongo.Db.connect(mongoUri);
+	var result = db.mydocs.find_one({username:password});
+	if(result) {
+		res.send("You are signed in, " + username);
+	}
+});
+
 app.post('/signUpCheck', function(req, res) {
-  var string = "You tried to sign up!"
-  string = string + " username: " + res.body.username + "<br> password: " + res.body.password; 
+  var string = "Welcome, ";
+  var username = req.body.username;
+  var passowrd = req.body.password;
+  string = string + req.body.username; 
   res.send(string);
 
-//  mongo.Db.connect(mongoUri, function (err, db) {
-//  db.collection('mydocs', function(er, collection) {
-//    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-//    });
-//  });
-//});
+  mongo.Db.connect(mongoUri, function (err, db) {
+  db.collection('mydocs', function(er, collection) {
+    collection.insert({username: password}, {safe: true}, function(er,rs) {
+	console.log(er);
+    });
+  });
+});
+
 });
 
 app.use(express.static(__dirname + "/public"));

@@ -17,6 +17,7 @@
   "author": "Kevin Jonaitis",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.0.2",
     "express": "^4.1.1",
     "logfmt": "^1.1.2",
     "mongodb": "^1.4.3"
