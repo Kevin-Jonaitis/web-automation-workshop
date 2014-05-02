@@ -26,7 +26,7 @@ app.post('/login', function(req, res) {
 app.post('/signUpCheck', function(req, res) {
   var string = "Welcome, ";
   var username = req.body.username;
-  var passowrd = req.body.password;
+  var password = req.body.password;
   string = string + req.body.username; 
   res.send(string);
 
