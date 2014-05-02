@@ -3,8 +3,8 @@ var logfmt = require("logfmt");
 var app = express();
 var mongo = require('mongodb');
 var mongoUri = process.env.MONGOLAB_URI ||  process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
-app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
+app.use(express.bodyParser());       // to support JSON-encoded bodies
+//app.use(express.urlencoded()); // to support URL-encoded bodies
 
 
 app.use(logfmt.requestLogger());
