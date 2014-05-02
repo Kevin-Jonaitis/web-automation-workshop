@@ -18,7 +18,7 @@ app.post('/login', function(req, res) {
 	var password = req.body.password;
 	mongo.Db.connect(mongoUri, function(err, db) {
 
-		db.collection("mydocs").find_one({username:password},function(err,item){
+		db.collection("mydocs").findOne({username:password},function(err,item){
 			if(item){
 				res.send("You are logged in, " + username);
 			} else {
