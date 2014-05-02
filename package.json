@@ -1,0 +1,23 @@
+{
+  "name": "web-automation-workshop",
+  "version": "0.0.0",
+  "description": "",
+  "main": "hellworld.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https:://github.com/Kevin-Jonaitis/web-automation-workshop.git"
+  },
+  "keywords": [
+    "web-automation",
+    "workshop"
+  ],
+  "author": "Kevin Jonaitis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.1.1",
+    "logfmt": "^1.1.2"
+  }
+}
