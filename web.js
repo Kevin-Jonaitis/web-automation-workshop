@@ -22,17 +22,18 @@ app.post('/login', function(req, res) {
 			if(item){
 				res.send("You are logged in, " + username);
 			} else {
-				res.send("We could not find user " + username + " :( So very sorry");
+				res.send("Incorrect user/password combination" + username + " :( So very sorry");
 			}
 		});
 	});
 });
 
 app.post('/signUpCheck', function(req, res) {
-  var string = "Welcome, " + username + " with password " + password;
   var username = String(req.body.username);
   var password = String(req.body.password);
   string = string + req.body.username; 
+  var string = "Welcome, " + username + " with password " + password;
+ 
   res.send(string);
 
   mongo.Db.connect(mongoUri, function (err, db) {
