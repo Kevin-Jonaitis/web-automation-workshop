@@ -16,11 +16,13 @@ app.get('/', function(req, res) {
 app.post('/login', function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
-	var db = mongo.Db.connect(mongoUri);
-	var result = db.mydocs.find_one({username:password});
+	var db = mongo.Db.connect(mongoUri, function(err, db) {
+
+	db.mydocs.find_one({username:password});
 	if(result) {
 		res.send("You are signed in, " + username);
 	}
+	});
 });
 
 app.post('/signUpCheck', function(req, res) {
@@ -33,7 +35,8 @@ app.post('/signUpCheck', function(req, res) {
   mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('mydocs', function(er, collection) {
     collection.insert({username: password}, {safe: true}, function(er,rs) {
-	console.log(er);
+	console.log("ERROR: " + er);
+	console.log("REASON: " + rs);
     });
   });
 });
