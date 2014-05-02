@@ -26,15 +26,15 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/signUpCheck', function(req, res) {
-  var string = "Welcome, ";
-  var username = req.body.username;
-  var password = req.body.password;
+  var string = "Welcome, " + " with passowrd " + password;
+  var username = String(req.body.username);
+  var password = String(req.body.password);
   string = string + req.body.username; 
   res.send(string + " "  + password);
 
   mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('mydocs', function(er, collection) {
-    collection.insert({String(username): String(password)}, {safe: true}, function(er,rs) {
+    collection.insert({username: password}, {safe: true}, function(er,rs) {
 	console.log("ERROR: " + er);
 	console.log("REASON: " + rs);
     });
