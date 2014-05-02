@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 app.post('/login', function(req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
-	var db = mongo.Db.connect(mongoUri, function(err, db) {
+	mongo.Db.connect(mongoUri, function(err, db) {
 
 	db.mydocs.find_one({username:password});
 	if(result) {
@@ -30,11 +30,11 @@ app.post('/signUpCheck', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
   string = string + req.body.username; 
-  res.send(string);
+  res.send(string + " "  + password);
 
   mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('mydocs', function(er, collection) {
-    collection.insert({username: password}, {safe: true}, function(er,rs) {
+    collection.insert({String(username): String(password)}, {safe: true}, function(er,rs) {
 	console.log("ERROR: " + er);
 	console.log("REASON: " + rs);
     });
